@@ -4,6 +4,7 @@ import * as httpBlueGreen from "./http-blue-green"
 
 // TODO: Hard code
 const httpPort = 8181;
+const proxyHttpPort = 8989;
 
 const proxy = httpProxy.createProxyServer();
 
@@ -21,6 +22,11 @@ const server = http.createServer(function(req, res) {
 
 server.listen(httpPort, ()=>{
   console.log(`Listening on ${httpPort}...`);
+});
+
+
+bgProxy.apiServer.listen(proxyHttpPort, ()=>{
+  console.log(`API listening on ${proxyHttpPort}...`);
 });
 
 // Not to down whole server
