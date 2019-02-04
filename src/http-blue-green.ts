@@ -32,31 +32,31 @@ export class Proxy {
 
     const deleteSymbol = ()=>{
       this.bgToSymbols[currentBgState].delete(symbol);
-      console.log("bgToSymbols: ", this.bgToSymbols);
+      console.log("deleted bgToSymbols: ", this.bgToSymbols);
     };
     req.on("close", ()=>{
-      console.log(`req on close`);
+      console.log(`req ${req.method} ${req.url} on close`);
       deleteSymbol();
     });
     req.on("end", ()=>{
-      console.log(`req on end`);
-      deleteSymbol();
+      console.log(`req ${req.method} ${req.url} on end`);
+      // deleteSymbol();
     });
     req.on("error", ()=>{
-      console.log(`req on error`);
+      console.log(`req ${req.method} ${req.url} on error`);
       deleteSymbol();
     });
 
     res.on("close", ()=>{
-      console.log(`res on close`);
+      console.log(`res ${req.method} ${req.url} on close`);
       deleteSymbol();
     });
     res.on("finish", ()=>{
-      console.log(`res on finish`);
+      console.log(`res ${req.method} ${req.url} on finish`);
       deleteSymbol();
     });
     res.on("error", ()=>{
-      console.log(`res on error`);
+      console.log(`res ${req.method} ${req.url} on error`);
       deleteSymbol();
     });
   }
