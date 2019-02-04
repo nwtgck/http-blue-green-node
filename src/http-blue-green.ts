@@ -78,7 +78,9 @@ function appGenerator(proxy: Proxy): express.Express {
   app.use(bodyParser.json());
   app.get("/bg-state", (req, res)=>{
     res.json({
-      bgState: proxy.bgState
+      bgState: proxy.bgState,
+      nBlues: proxy.bgToSymbols.blue.size,
+      nGreens: proxy.bgToSymbols.green.size
     });
   });
   app.post("/bg-state", (req, res)=>{
