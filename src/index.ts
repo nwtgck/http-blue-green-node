@@ -1,24 +1,20 @@
-const http = require('http');
-const httpProxy = require('http-proxy');
+import * as http from "http";
+import * as httpProxy from "http-proxy";
 
 // TODO: Hard code
 const httpPort = 8181;
 
 class BlueGreenProxy {
-  constructor(proxy, blueTarget, greenTarget){
-    this.proxy = proxy;
-    this.greenTarget = greenTarget;
-    this.blueTarget = blueTarget;
+  bgToSymbols = {
+    "blue": new Set(),
+    "green": new Set()
+  };
 
-    this.bgToSymbols = {
-      "blue": new Set(),
-      "green": new Set()
-    };
-  
-    this.bgState = "blue";
-  }
+  bgState: "blue" | "green" = "blue";
 
-  handle(req, res){
+  constructor(readonly proxy: httpProxy, readonly blueTarget: string, readonly greenTarget: string){}
+
+  handle(req: http.IncomingMessage, res: http.ServerResponse){
     const currentBgState = this.bgState;
     const symbol = Symbol();
     this.bgToSymbols[currentBgState].add(symbol);
@@ -64,7 +60,7 @@ class BlueGreenProxy {
     });
   }
 
-  setBgState(bgState) {
+  setBgState(bgState: "blue" | "green") {
     this.bgState = bgState;
   }
 
@@ -76,7 +72,7 @@ class BlueGreenProxy {
 
 const proxy = httpProxy.createProxyServer();
 
-const bgProxy =new BlueGreenProxy(
+const bgProxy = new BlueGreenProxy(
   proxy,
   // TODO: Hard code
   "http://localhost:8080",
