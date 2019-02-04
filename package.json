@@ -2,11 +2,11 @@
   "name": "http-blue-green",
   "version": "0.1.0-SNAPSHOT",
   "description": "",
-  "main": "dist/lib/index.js",
-  "types": "dist/lib/index.d.ts",
+  "main": "dist/src/http-blue-green.js",
+  "types": "dist/src/http-blue-green.d.ts",
   "scripts": {
     "build": "tsc",
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "start": "npm run build && node dist/src/index.js",
     "test": "mocha --require ts-node/register test/**/*.ts"
   },
